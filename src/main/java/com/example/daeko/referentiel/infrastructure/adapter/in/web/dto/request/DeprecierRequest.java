@@ -1,25 +1,21 @@
 package com.example.daeko.referentiel.infrastructure.adapter.in.web.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DeprecierRequest {
 
     @NotBlank
     private String motif;
 
     private LocalDate dateEffet;
-
-    public DeprecierRequest() {}
-
-    public DeprecierRequest(String motif, LocalDate dateEffet) {
-        this.motif = motif;
-        this.dateEffet = dateEffet;
-    }
-
-    public String getMotif() { return motif; }
-    public void setMotif(String motif) { this.motif = motif; }
-    public LocalDate getDateEffet() { return dateEffet; }
-    public void setDateEffet(LocalDate dateEffet) { this.dateEffet = dateEffet; }
 }
