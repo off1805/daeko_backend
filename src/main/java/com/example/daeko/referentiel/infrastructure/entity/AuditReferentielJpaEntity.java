@@ -4,6 +4,8 @@ import com.example.daeko.referentiel.domain.model.OperationAudit;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -35,9 +37,11 @@ public class AuditReferentielJpaEntity {
     @Column(nullable = false)
     private Instant horodatage;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "valeurs_avant", columnDefinition = "jsonb")
     private String valeursAvant;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "valeurs_apres", columnDefinition = "jsonb")
     private String valeursApres;
 

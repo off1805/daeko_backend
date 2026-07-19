@@ -25,6 +25,10 @@ public class SousSysteme extends EntiteReferentiel {
         this.description = description;
         this.languePrincipale = languePrincipale;
         if (dateEntreeVigueur != null) setDateEntreeVigueur(dateEntreeVigueur);
+        if (creePar != null) {
+            setCreePar(creePar);
+            setModifiePar(creePar);
+        }
     }
 
     public String getCode() { return code; }

@@ -19,6 +19,7 @@ public abstract class AbstractReferentielApplicationService<T extends EntiteRefe
     protected final T executerDepreciation(T entite, String typeEntite, DeprecierCommand command) {
         T avant = copier(entite);
         entite.deprecier(command.getMotif(), command.getDateEffet());
+        entite.setModifiePar(command.getUtilisateurId());
         auditPort.enregistrer(typeEntite, entite.getId(), "DEPRECIATION",
                 command.getUtilisateurId(), avant, entite);
         evenementPublisher.publierDepreciation(typeEntite, entite.getId(),

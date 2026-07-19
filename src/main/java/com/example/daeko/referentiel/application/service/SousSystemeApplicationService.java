@@ -58,6 +58,7 @@ public class SousSystemeApplicationService
         entite.setLibelle(command.getLibelle());
         entite.setLibelleCourt(command.getLibelleCourt());
         entite.setDescription(command.getDescription());
+        entite.setModifiePar(command.getUtilisateurId());
         SousSysteme sauvegarde = repository.sauvegarder(entite);
         auditPort.enregistrer(TYPE_ENTITE, sauvegarde.getId(), "MODIFICATION",
                 command.getUtilisateurId(), avant, sauvegarde);
@@ -88,8 +89,9 @@ public class SousSystemeApplicationService
         SousSysteme copie = new SousSysteme(
                 source.getCode(), source.getLibelle(), source.getLibelleCourt(),
                 source.getDescription(), source.getLanguePrincipale(),
-                source.getDateEntreeVigueur(), null);
+                source.getDateEntreeVigueur(), source.getCreePar());
         copie.setId(source.getId());
+        copie.setModifiePar(source.getModifiePar());
         return copie;
     }
 }

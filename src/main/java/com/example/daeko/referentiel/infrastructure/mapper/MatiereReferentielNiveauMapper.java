@@ -27,9 +27,11 @@ public class MatiereReferentielNiveauMapper {
                 entity.getSourceCoefficient(),
                 entity.getBaremeSpecifique(),
                 entity.getDescription(),
-                entity.getDateEntreeVigueur()
+                entity.getDateEntreeVigueur(),
+                entity.getCreePar()
         );
         domain.setId(entity.getId());
+        domain.setModifiePar(entity.getModifiePar());
         if (entity.getEtat() == EtatReferentielJpa.DEPRECATED) {
             domain.deprecier(entity.getMotifDepreciation(), entity.getDateDepreciation());
         }
@@ -39,15 +41,15 @@ public class MatiereReferentielNiveauMapper {
     public MatiereReferentielNiveauJpaEntity toEntity(MatiereReferentielNiveau domain) {
         MatiereReferentielNiveauJpaEntity entity = new MatiereReferentielNiveauJpaEntity();
         entity.setId(domain.getId());
-        
+
         MatiereReferentielJpaEntity matiere = new MatiereReferentielJpaEntity();
         matiere.setId(domain.getMatiereReferentielId());
         entity.setMatiereReferentiel(matiere);
-        
+
         NiveauJpaEntity niveau = new NiveauJpaEntity();
         niveau.setId(domain.getNiveauId());
         entity.setNiveau(niveau);
-        
+
         if (domain.getSerieId() != null) {
             SerieJpaEntity serie = new SerieJpaEntity();
             serie.setId(domain.getSerieId());
@@ -55,7 +57,7 @@ public class MatiereReferentielNiveauMapper {
         } else {
             entity.setSerie(null);
         }
-        
+
         entity.setEstObligatoire(domain.isEstObligatoire());
         entity.setCoefficientSuggere(domain.getCoefficientSuggere());
         entity.setSourceCoefficient(domain.getSourceCoefficient());
@@ -65,6 +67,8 @@ public class MatiereReferentielNiveauMapper {
         entity.setDateDepreciation(domain.getDateDepreciation());
         entity.setMotifDepreciation(domain.getMotifDepreciation());
         entity.setEtat(EtatReferentielJpa.valueOf(domain.getEtat().name()));
+        entity.setCreePar(domain.getCreePar());
+        entity.setModifiePar(domain.getModifiePar());
         return entity;
     }
 

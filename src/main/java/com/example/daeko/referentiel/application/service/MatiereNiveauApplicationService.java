@@ -94,7 +94,7 @@ public class MatiereNiveauApplicationService
                 command.getMatiereReferentielId(), command.getNiveauId(), serieId,
                 command.isEstObligatoire(), command.getCoefficientSuggere(),
                 command.getSourceCoefficient(), command.getBaremeSpecifique(),
-                command.getDescription(), command.getDateEntreeVigueur());
+                command.getDescription(), command.getDateEntreeVigueur(), command.getUtilisateurId());
         MatiereReferentielNiveau sauvegarde = repository.sauvegarder(entite);
 
         auditPort.enregistrer(TYPE_ENTITE, sauvegarde.getId(), "CREATION",
@@ -128,8 +128,9 @@ public class MatiereNiveauApplicationService
                 source.getMatiereReferentielId(), source.getNiveauId(), source.getSerieId(),
                 source.isEstObligatoire(), source.getCoefficientSuggere(),
                 source.getSourceCoefficient(), source.getBaremeSpecifique(),
-                source.getDescription(), source.getDateEntreeVigueur());
+                source.getDescription(), source.getDateEntreeVigueur(), source.getCreePar());
         copie.setId(source.getId());
+        copie.setModifiePar(source.getModifiePar());
         return copie;
     }
 }

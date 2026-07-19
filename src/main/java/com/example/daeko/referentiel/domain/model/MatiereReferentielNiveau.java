@@ -24,9 +24,9 @@ public class MatiereReferentielNiveau extends EntiteReferentiel {
     }
 
     public MatiereReferentielNiveau(UUID matiereReferentielId, UUID niveauId, UUID serieId,
-                                     boolean estObligatoire, BigDecimal coefficientSuggere,
-                                     String sourceCoefficient, Integer baremeSpecifique,
-                                     String description, LocalDate dateEntreeVigueur) {
+                                    boolean estObligatoire, BigDecimal coefficientSuggere,
+                                    String sourceCoefficient, Integer baremeSpecifique,
+                                    String description, LocalDate dateEntreeVigueur, UUID creePar) {
         super();
         this.matiereReferentielId = matiereReferentielId;
         this.niveauId = niveauId;
@@ -37,6 +37,10 @@ public class MatiereReferentielNiveau extends EntiteReferentiel {
         this.baremeSpecifique = baremeSpecifique;
         this.description = description;
         if (dateEntreeVigueur != null) setDateEntreeVigueur(dateEntreeVigueur);
+        if (creePar != null) {
+            setCreePar(creePar);
+            setModifiePar(creePar);
+        }
     }
 
     public UUID getMatiereReferentielId() { return matiereReferentielId; }
