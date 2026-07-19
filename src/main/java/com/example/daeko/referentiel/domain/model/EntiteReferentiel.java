@@ -14,6 +14,8 @@ public abstract class EntiteReferentiel {
     private LocalDate dateEntreeVigueur;
     private LocalDate dateDepreciation;
     private String motifDepreciation;
+    private UUID creePar;
+    private UUID modifiePar;
 
     protected EntiteReferentiel() {
         this.etat = EtatReferentiel.ACTIVE;
@@ -49,4 +51,10 @@ public abstract class EntiteReferentiel {
 
     public LocalDate getDateDepreciation() { return dateDepreciation; }
     public String getMotifDepreciation() { return motifDepreciation; }
+
+    public UUID getCreePar() { return creePar; }
+    public void setCreePar(UUID creePar) { this.creePar = creePar; }
+
+    public UUID getModifiePar() { return modifiePar; }
+    public void setModifiePar(UUID modifiePar) { this.modifiePar = modifiePar; }
 }

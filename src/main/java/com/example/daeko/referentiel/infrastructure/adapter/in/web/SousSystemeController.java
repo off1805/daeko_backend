@@ -32,6 +32,8 @@ public class SousSystemeController {
         this.mapper = mapper;
     }
 
+    //private static final UUID UTILISATEUR_SYSTEME = UUID.fromString("00000000-0000-0000-0000-000000000000");
+
     @GetMapping
     public List<SousSystemeResponse> lister(
             @RequestParam(defaultValue = "ACTIVE") EtatReferentiel etat) {
@@ -67,7 +69,7 @@ public class SousSystemeController {
             @PathVariable UUID id,
             @Valid @RequestBody DeprecierRequest request) {
         DeprecierCommand command = new DeprecierCommand(id, request.getMotif(),
-                request.getDateEffet(), null);
+                request.getDateEffet(), null /*UTILISATEUR_SYSTEME*/);
         return mapper.toResponse(useCase.deprecier(command));
     }
 

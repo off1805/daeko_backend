@@ -2,7 +2,7 @@ package com.example.daeko.referentiel.application.dto;
 
 import java.util.UUID;
 
-public class ModifierSousSystemeCommand {
+public class   ModifierSousSystemeCommand {
 
     private final UUID id;
     private final String libelle;

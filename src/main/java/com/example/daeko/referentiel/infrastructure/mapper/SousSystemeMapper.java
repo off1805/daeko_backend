@@ -18,8 +18,9 @@ public class SousSystemeMapper {
         SousSysteme domaine = new SousSysteme(
                 entity.getCode(), entity.getLibelle(), entity.getLibelleCourt(),
                 entity.getDescription(), entity.getLanguePrincipale(),
-                entity.getDateEntreeVigueur(), null);
+                entity.getDateEntreeVigueur(), entity.getCreePar());
         domaine.setId(entity.getId());
+        domaine.setModifiePar(entity.getModifiePar());
         if (entity.getEtat() == EtatReferentielJpa.DEPRECATED) {
             domaine.deprecier(entity.getMotifDepreciation(), entity.getDateDepreciation());
         }
@@ -38,6 +39,8 @@ public class SousSystemeMapper {
         entity.setDateDepreciation(domaine.getDateDepreciation());
         entity.setMotifDepreciation(domaine.getMotifDepreciation());
         entity.setEtat(EtatReferentielJpa.valueOf(domaine.getEtat().name()));
+        entity.setCreePar(domaine.getCreePar());
+        entity.setModifiePar(domaine.getModifiePar());
         return entity;
     }
 
