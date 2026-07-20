@@ -18,9 +18,11 @@ public class FiliereMapper {
                 entity.getLibelle(),
                 entity.getLibelleEn(),
                 entity.getDescription(),
-                entity.getDateEntreeVigueur()
+                entity.getDateEntreeVigueur(),
+                entity.getCreePar()
         );
         domain.setId(entity.getId());
+        domain.setModifiePar(entity.getModifiePar());
         if (entity.getEtat() == EtatReferentielJpa.DEPRECATED) {
             domain.deprecier(entity.getMotifDepreciation(), entity.getDateDepreciation());
         }
@@ -30,15 +32,15 @@ public class FiliereMapper {
     public FiliereJpaEntity toEntity(Filiere domain) {
         FiliereJpaEntity entity = new FiliereJpaEntity();
         entity.setId(domain.getId());
-        
+
         OrdreEnseignementJpaEntity oe = new OrdreEnseignementJpaEntity();
         oe.setId(domain.getOrdreEnseignementId());
         entity.setOrdreEnseignement(oe);
-        
+
         TypeEnseignementJpaEntity te = new TypeEnseignementJpaEntity();
         te.setId(domain.getTypeEnseignementId());
         entity.setTypeEnseignement(te);
-        
+
         entity.setCode(domain.getCode());
         entity.setLibelle(domain.getLibelle());
         entity.setLibelleEn(domain.getLibelleEn());
@@ -47,6 +49,8 @@ public class FiliereMapper {
         entity.setDateDepreciation(domain.getDateDepreciation());
         entity.setMotifDepreciation(domain.getMotifDepreciation());
         entity.setEtat(EtatReferentielJpa.valueOf(domain.getEtat().name()));
+        entity.setCreePar(domain.getCreePar());
+        entity.setModifiePar(domain.getModifiePar());
         return entity;
     }
 }

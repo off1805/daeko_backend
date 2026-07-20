@@ -2,6 +2,7 @@ package com.example.daeko.referentiel.infrastructure.adapter.in.web;
 
 import com.example.daeko.referentiel.application.dto.DeprecierCommand;
 import com.example.daeko.referentiel.application.dto.ModifierSousSystemeCommand;
+import com.example.daeko.referentiel.application.dto.ReactiverCommand;
 import com.example.daeko.referentiel.application.port.in.SousSystemeUseCase;
 import com.example.daeko.referentiel.domain.exception.SuppressionInterditeException;
 import com.example.daeko.referentiel.domain.model.EtatReferentiel;
@@ -71,6 +72,12 @@ public class SousSystemeController {
         DeprecierCommand command = new DeprecierCommand(id, request.getMotif(),
                 request.getDateEffet(), null /*UTILISATEUR_SYSTEME*/);
         return mapper.toResponse(useCase.deprecier(command));
+    }
+
+    @PostMapping("/{id}/reactiver")
+    public SousSystemeResponse reactiver(@PathVariable UUID id) {
+        ReactiverCommand command = new ReactiverCommand(id, null);
+        return mapper.toResponse(useCase.reactiver(command));
     }
 
     @DeleteMapping("/{id}")

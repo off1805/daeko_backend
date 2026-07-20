@@ -20,7 +20,7 @@ public class Cycle extends EntiteReferentiel {
 
     public Cycle(UUID sousSystemeId, UUID ordreEnseignementId, String code, String libelle,
                  String libelleEn, Integer rang, Integer dureeTheoriqueAnnees,
-                 String description, LocalDate dateEntreeVigueur) {
+                 String description, LocalDate dateEntreeVigueur, UUID creePar) {
         super();
         this.sousSystemeId = sousSystemeId;
         this.ordreEnseignementId = ordreEnseignementId;
@@ -31,6 +31,10 @@ public class Cycle extends EntiteReferentiel {
         this.dureeTheoriqueAnnees = dureeTheoriqueAnnees;
         this.description = description;
         if (dateEntreeVigueur != null) setDateEntreeVigueur(dateEntreeVigueur);
+        if (creePar != null) {
+            setCreePar(creePar);
+            setModifiePar(creePar);
+        }
     }
 
     public UUID getSousSystemeId() { return sousSystemeId; }

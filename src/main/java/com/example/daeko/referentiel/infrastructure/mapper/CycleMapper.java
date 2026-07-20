@@ -20,9 +20,11 @@ public class CycleMapper {
                 entity.getRang(),
                 entity.getDureeTheoriqueAnnees(),
                 entity.getDescription(),
-                entity.getDateEntreeVigueur()
+                entity.getDateEntreeVigueur(),
+                entity.getCreePar()
         );
         domain.setId(entity.getId());
+        domain.setModifiePar(entity.getModifiePar());
         if (entity.getEtat() == EtatReferentielJpa.DEPRECATED) {
             domain.deprecier(entity.getMotifDepreciation(), entity.getDateDepreciation());
         }
@@ -32,15 +34,15 @@ public class CycleMapper {
     public CycleJpaEntity toEntity(Cycle domain) {
         CycleJpaEntity entity = new CycleJpaEntity();
         entity.setId(domain.getId());
-        
+
         SousSystemeJpaEntity ss = new SousSystemeJpaEntity();
         ss.setId(domain.getSousSystemeId());
         entity.setSousSysteme(ss);
-        
+
         OrdreEnseignementJpaEntity oe = new OrdreEnseignementJpaEntity();
         oe.setId(domain.getOrdreEnseignementId());
         entity.setOrdreEnseignement(oe);
-        
+
         entity.setCode(domain.getCode());
         entity.setLibelle(domain.getLibelle());
         entity.setLibelleEn(domain.getLibelleEn());
@@ -51,6 +53,8 @@ public class CycleMapper {
         entity.setDateDepreciation(domain.getDateDepreciation());
         entity.setMotifDepreciation(domain.getMotifDepreciation());
         entity.setEtat(EtatReferentielJpa.valueOf(domain.getEtat().name()));
+        entity.setCreePar(domain.getCreePar());
+        entity.setModifiePar(domain.getModifiePar());
         return entity;
     }
 }
