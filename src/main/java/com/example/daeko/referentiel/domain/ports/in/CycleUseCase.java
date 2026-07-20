@@ -1,3 +1,4 @@
+
 package com.example.daeko.referentiel.domain.ports.in;
 
 import com.example.daeko.referentiel.domain.model.Cycle;
