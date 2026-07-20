@@ -3,7 +3,7 @@ package com.example.daeko.referentiel.application.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class ModifierOrdreEnseignementCommand {
+public class ModifierTypeEnseignementCommand {
 
     private final UUID id;
     private final String code;
@@ -12,8 +12,8 @@ public class ModifierOrdreEnseignementCommand {
     private final LocalDate dateEntreeVigueur;
     private final UUID utilisateurId;
 
-    public ModifierOrdreEnseignementCommand(UUID id, String code, String libelle, Integer rang,
-                                            LocalDate dateEntreeVigueur, UUID utilisateurId) {
+    public ModifierTypeEnseignementCommand(UUID id, String code, String libelle, Integer rang,
+                                           LocalDate dateEntreeVigueur, UUID utilisateurId) {
         this.id = id;
         this.code = code;
         this.libelle = libelle;

@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/ordres-enseignement")
+@RequestMapping("/api/ordres-enseignement")
 public class OrdreEnseignementController {
 
     private final OrdreEnseignementUseCase ordreEnseignementUseCase;

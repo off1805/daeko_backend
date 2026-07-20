@@ -5,6 +5,7 @@ import com.example.daeko.referentiel.domain.model.EtatReferentiel;
 import com.example.daeko.referentiel.domain.ports.in.CycleUseCase;
 import com.example.daeko.referentiel.application.dto.CreerCycleCommand;
 import com.example.daeko.referentiel.application.dto.ModifierCycleCommand;
+import com.example.daeko.referentiel.application.dto.DeprecierCycleCommand;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ public class CycleApplicationService implements CycleUseCase {
 
     @Override
     public Cycle creer(CreerCycleCommand command) {
-
+        // Instanciation exacte selon le constructeur de l'entité Cycle
         Cycle cycle = new Cycle(
                 command.getSousSystemeId(),
                 command.getOrdreEnseignementId(),
@@ -40,7 +41,7 @@ public class CycleApplicationService implements CycleUseCase {
 
     @Override
     public Cycle modifier(ModifierCycleCommand command) {
-        // Même constructeur utilisé pour la simulation de modification
+
         Cycle cycleModifie = new Cycle(
                 command.getSousSystemeId(),
                 command.getOrdreEnseignementId(),
@@ -54,6 +55,24 @@ public class CycleApplicationService implements CycleUseCase {
         );
 
         return cycleModifie;
+    }
+
+    @Override
+    public Cycle deprecier(DeprecierCycleCommand command) {
+
+        Cycle cycleDeprecie = new Cycle(
+                UUID.randomUUID(),
+                UUID.randomUUID(),
+                "CODE_TEMP",
+                "Libellé Temporaire",
+                "Temporary Label",
+                1,
+                3,
+                "Cycle déprécié",
+                java.time.LocalDate.now()
+        );
+
+        return cycleDeprecie;
     }
 
     @Override
