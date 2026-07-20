@@ -6,4 +6,6 @@ import java.util.UUID;
 public interface EvenementPublisherPort {
     void publierDepreciation(String typeEntite, UUID entiteId, String code,
                              LocalDate dateEffet, String motif);
+
+    void publierReactivation(String typeEntite, UUID entiteId, String code);
 }

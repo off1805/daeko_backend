@@ -1,6 +1,7 @@
 package com.example.daeko.referentiel.application.service;
 
 import com.example.daeko.referentiel.application.dto.DeprecierCommand;
+import com.example.daeko.referentiel.application.dto.ReactiverCommand;
 import com.example.daeko.referentiel.application.port.out.AuditPort;
 import com.example.daeko.referentiel.application.port.out.EvenementPublisherPort;
 import com.example.daeko.referentiel.domain.model.EntiteReferentiel;
@@ -21,9 +22,19 @@ public abstract class AbstractReferentielApplicationService<T extends EntiteRefe
         entite.deprecier(command.getMotif(), command.getDateEffet());
         entite.setModifiePar(command.getUtilisateurId());
         auditPort.enregistrer(typeEntite, entite.getId(), "DEPRECIATION",
-                command.getUtilisateurId(), avant, entite);
+                command.getUtilisateurId(), command.getMotif(), avant, entite);
         evenementPublisher.publierDepreciation(typeEntite, entite.getId(),
                 getCode(entite), command.getDateEffet(), command.getMotif());
+        return entite;
+    }
+
+    protected final T executerReactivation(T entite, String typeEntite, ReactiverCommand command) {
+        T avant = copier(entite);
+        entite.reactiver();
+        entite.setModifiePar(command.getUtilisateurId());
+        auditPort.enregistrer(typeEntite, entite.getId(), "REACTIVATION",
+                command.getUtilisateurId(), null, avant, entite);
+        evenementPublisher.publierReactivation(typeEntite, entite.getId(), getCode(entite));
         return entite;
     }
 

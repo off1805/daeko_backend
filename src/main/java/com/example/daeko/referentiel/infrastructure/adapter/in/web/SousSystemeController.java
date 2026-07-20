@@ -2,6 +2,7 @@ package com.example.daeko.referentiel.infrastructure.adapter.in.web;
 
 import com.example.daeko.referentiel.application.dto.DeprecierCommand;
 import com.example.daeko.referentiel.application.dto.ModifierSousSystemeCommand;
+import com.example.daeko.referentiel.application.dto.ReactiverCommand;
 import com.example.daeko.referentiel.application.port.in.SousSystemeUseCase;
 import com.example.daeko.referentiel.domain.exception.SuppressionInterditeException;
 import com.example.daeko.referentiel.domain.model.EtatReferentiel;
@@ -27,12 +28,12 @@ public class SousSystemeController {
     private final SousSystemeUseCase useCase;
     private final SousSystemeMapper mapper;
 
+    //private static final UUID UTILISATEUR_SYSTEME = UUID.fromString("00000000-0000-0000-0000-000000000000");
+
     public SousSystemeController(SousSystemeUseCase useCase, SousSystemeMapper mapper) {
         this.useCase = useCase;
         this.mapper = mapper;
     }
-
-    //private static final UUID UTILISATEUR_SYSTEME = UUID.fromString("00000000-0000-0000-0000-000000000000");
 
     @GetMapping
     public List<SousSystemeResponse> lister(
@@ -69,8 +70,14 @@ public class SousSystemeController {
             @PathVariable UUID id,
             @Valid @RequestBody DeprecierRequest request) {
         DeprecierCommand command = new DeprecierCommand(id, request.getMotif(),
-                request.getDateEffet(), null /*UTILISATEUR_SYSTEME*/);
+                request.getDateEffet(), null);
         return mapper.toResponse(useCase.deprecier(command));
+    }
+
+    @PostMapping("/{id}/reactiver")
+    public SousSystemeResponse reactiver(@PathVariable UUID id) {
+        ReactiverCommand command = new ReactiverCommand(id, null);
+        return mapper.toResponse(useCase.reactiver(command));
     }
 
     @DeleteMapping("/{id}")

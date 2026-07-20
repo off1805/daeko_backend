@@ -25,9 +25,11 @@ public class MatiereReferentielMapper {
                 TypeMatiereReferentiel.valueOf(entity.getTypeMatiere().name()),
                 entity.getBaremeParDefaut(),
                 entity.getDescription(),
-                entity.getDateEntreeVigueur()
+                entity.getDateEntreeVigueur(),
+                entity.getCreePar()
         );
         domain.setId(entity.getId());
+        domain.setModifiePar(entity.getModifiePar());
         if (entity.getEtat() == EtatReferentielJpa.DEPRECATED) {
             domain.deprecier(entity.getMotifDepreciation(), entity.getDateDepreciation());
         }
@@ -37,11 +39,11 @@ public class MatiereReferentielMapper {
     public MatiereReferentielJpaEntity toEntity(MatiereReferentiel domain) {
         MatiereReferentielJpaEntity entity = new MatiereReferentielJpaEntity();
         entity.setId(domain.getId());
-        
+
         SousSystemeJpaEntity ss = new SousSystemeJpaEntity();
         ss.setId(domain.getSousSystemeId());
         entity.setSousSysteme(ss);
-        
+
         entity.setCode(domain.getCode());
         entity.setLibelle(domain.getLibelle());
         entity.setLibelleCourt(domain.getLibelleCourt());
@@ -54,6 +56,8 @@ public class MatiereReferentielMapper {
         entity.setDateDepreciation(domain.getDateDepreciation());
         entity.setMotifDepreciation(domain.getMotifDepreciation());
         entity.setEtat(EtatReferentielJpa.valueOf(domain.getEtat().name()));
+        entity.setCreePar(domain.getCreePar());
+        entity.setModifiePar(domain.getModifiePar());
         return entity;
     }
 }

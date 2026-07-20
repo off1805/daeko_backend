@@ -20,9 +20,11 @@ public class NiveauMapper {
                 entity.getRangDansCycle(),
                 entity.getAgeTheoriqueDebut(),
                 entity.getDescription(),
-                entity.getDateEntreeVigueur()
+                entity.getDateEntreeVigueur(),
+                entity.getCreePar()
         );
         domain.setId(entity.getId());
+        domain.setModifiePar(entity.getModifiePar());
         if (entity.getEtat() == EtatReferentielJpa.DEPRECATED) {
             domain.deprecier(entity.getMotifDepreciation(), entity.getDateDepreciation());
         }
@@ -32,11 +34,11 @@ public class NiveauMapper {
     public NiveauJpaEntity toEntity(Niveau domain) {
         NiveauJpaEntity entity = new NiveauJpaEntity();
         entity.setId(domain.getId());
-        
+
         CycleJpaEntity cycle = new CycleJpaEntity();
         cycle.setId(domain.getCycleId());
         entity.setCycle(cycle);
-        
+
         entity.setCode(domain.getCode());
         entity.setLibelle(domain.getLibelle());
         entity.setLibelleCourt(domain.getLibelleCourt());
@@ -48,6 +50,8 @@ public class NiveauMapper {
         entity.setDateDepreciation(domain.getDateDepreciation());
         entity.setMotifDepreciation(domain.getMotifDepreciation());
         entity.setEtat(EtatReferentielJpa.valueOf(domain.getEtat().name()));
+        entity.setCreePar(domain.getCreePar());
+        entity.setModifiePar(domain.getModifiePar());
         return entity;
     }
 }

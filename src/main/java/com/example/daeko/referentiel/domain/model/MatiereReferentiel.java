@@ -20,8 +20,9 @@ public class MatiereReferentiel extends EntiteReferentiel {
     }
 
     public MatiereReferentiel(UUID sousSystemeId, String code, String libelle, String libelleCourt,
-                               String libelleEn, DomaineMatiere domaine, TypeMatiereReferentiel typeMatiere,
-                               Integer baremeParDefaut, String description, LocalDate dateEntreeVigueur) {
+                              String libelleEn, DomaineMatiere domaine, TypeMatiereReferentiel typeMatiere,
+                              Integer baremeParDefaut, String description, LocalDate dateEntreeVigueur,
+                              UUID creePar) {
         super();
         this.sousSystemeId = sousSystemeId;
         this.code = code;
@@ -33,6 +34,10 @@ public class MatiereReferentiel extends EntiteReferentiel {
         this.baremeParDefaut = baremeParDefaut != null ? baremeParDefaut : 20;
         this.description = description;
         if (dateEntreeVigueur != null) setDateEntreeVigueur(dateEntreeVigueur);
+        if (creePar != null) {
+            setCreePar(creePar);
+            setModifiePar(creePar);
+        }
     }
 
     public UUID getSousSystemeId() { return sousSystemeId; }

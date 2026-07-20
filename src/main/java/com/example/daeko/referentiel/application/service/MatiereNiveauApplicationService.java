@@ -2,6 +2,7 @@ package com.example.daeko.referentiel.application.service;
 
 import com.example.daeko.referentiel.application.dto.CreerMatiereNiveauCommand;
 import com.example.daeko.referentiel.application.dto.DeprecierCommand;
+import com.example.daeko.referentiel.application.dto.ReactiverCommand;
 import com.example.daeko.referentiel.application.port.in.MatiereNiveauUseCase;
 import com.example.daeko.referentiel.application.port.out.AuditPort;
 import com.example.daeko.referentiel.application.port.out.EvenementPublisherPort;
@@ -98,7 +99,7 @@ public class MatiereNiveauApplicationService
         MatiereReferentielNiveau sauvegarde = repository.sauvegarder(entite);
 
         auditPort.enregistrer(TYPE_ENTITE, sauvegarde.getId(), "CREATION",
-                command.getUtilisateurId(), null, sauvegarde);
+                command.getUtilisateurId(), null, null, sauvegarde);
         return sauvegarde;
     }
 
@@ -108,6 +109,15 @@ public class MatiereNiveauApplicationService
         MatiereReferentielNiveau entite = repository.trouverParId(command.getEntiteId())
                 .orElseThrow(EntiteIntrouvableException::new);
         MatiereReferentielNiveau modifiee = executerDepreciation(entite, TYPE_ENTITE, command);
+        return repository.sauvegarder(modifiee);
+    }
+
+    @Override
+    @Transactional
+    public MatiereReferentielNiveau reactiver(ReactiverCommand command) {
+        MatiereReferentielNiveau entite = repository.trouverParId(command.getEntiteId())
+                .orElseThrow(EntiteIntrouvableException::new);
+        MatiereReferentielNiveau modifiee = executerReactivation(entite, TYPE_ENTITE, command);
         return repository.sauvegarder(modifiee);
     }
 

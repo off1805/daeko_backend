@@ -1,6 +1,7 @@
 package com.example.daeko.referentiel.infrastructure.adapter.out.event;
 
 import com.example.daeko.referentiel.application.port.out.EvenementPublisherPort;
+import com.example.daeko.referentiel.domain.event.EntiteReactiveeEvent;
 import com.example.daeko.referentiel.domain.event.EntreeDeprecieeEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
@@ -21,5 +22,10 @@ public class EvenementPublisherAdapter implements EvenementPublisherPort {
     public void publierDepreciation(String typeEntite, UUID entiteId, String code,
                                     LocalDate dateEffet, String motif) {
         publisher.publishEvent(new EntreeDeprecieeEvent(typeEntite, entiteId, code, dateEffet, motif));
+    }
+
+    @Override
+    public void publierReactivation(String typeEntite, UUID entiteId, String code) {
+        publisher.publishEvent(new EntiteReactiveeEvent(typeEntite, entiteId, code));
     }
 }

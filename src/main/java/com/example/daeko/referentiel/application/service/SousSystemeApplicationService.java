@@ -3,6 +3,7 @@ package com.example.daeko.referentiel.application.service;
 import com.example.daeko.referentiel.application.dto.CreerSousSystemeCommand;
 import com.example.daeko.referentiel.application.dto.DeprecierCommand;
 import com.example.daeko.referentiel.application.dto.ModifierSousSystemeCommand;
+import com.example.daeko.referentiel.application.dto.ReactiverCommand;
 import com.example.daeko.referentiel.application.port.in.SousSystemeUseCase;
 import com.example.daeko.referentiel.application.port.out.AuditPort;
 import com.example.daeko.referentiel.application.port.out.EvenementPublisherPort;
@@ -45,7 +46,7 @@ public class SousSystemeApplicationService
                 command.getDescription(), command.getLanguePrincipale(), null, command.getUtilisateurId());
         SousSysteme sauvegarde = repository.sauvegarder(entite);
         auditPort.enregistrer(TYPE_ENTITE, sauvegarde.getId(), "CREATION",
-                command.getUtilisateurId(), null, sauvegarde);
+                command.getUtilisateurId(), null, null, sauvegarde);
         return sauvegarde;
     }
 
@@ -61,7 +62,7 @@ public class SousSystemeApplicationService
         entite.setModifiePar(command.getUtilisateurId());
         SousSysteme sauvegarde = repository.sauvegarder(entite);
         auditPort.enregistrer(TYPE_ENTITE, sauvegarde.getId(), "MODIFICATION",
-                command.getUtilisateurId(), avant, sauvegarde);
+                command.getUtilisateurId(), null, avant, sauvegarde);
         return sauvegarde;
     }
 
@@ -71,6 +72,15 @@ public class SousSystemeApplicationService
         SousSysteme entite = repository.trouverParId(command.getEntiteId())
                 .orElseThrow(EntiteIntrouvableException::new);
         SousSysteme modifiee = executerDepreciation(entite, TYPE_ENTITE, command);
+        return repository.sauvegarder(modifiee);
+    }
+
+    @Override
+    @Transactional
+    public SousSysteme reactiver(ReactiverCommand command) {
+        SousSysteme entite = repository.trouverParId(command.getEntiteId())
+                .orElseThrow(EntiteIntrouvableException::new);
+        SousSysteme modifiee = executerReactivation(entite, TYPE_ENTITE, command);
         return repository.sauvegarder(modifiee);
     }
 

@@ -19,7 +19,7 @@ public class Serie extends EntiteReferentiel {
 
     public Serie(UUID filiereId, UUID niveauApparitionId, String code, String libelle,
                  String libelleCourt, String libelleEn, String description,
-                 LocalDate dateEntreeVigueur) {
+                 LocalDate dateEntreeVigueur, UUID creePar) {
         super();
         this.filiereId = filiereId;
         this.niveauApparitionId = niveauApparitionId;
@@ -29,6 +29,10 @@ public class Serie extends EntiteReferentiel {
         this.libelleEn = libelleEn;
         this.description = description;
         if (dateEntreeVigueur != null) setDateEntreeVigueur(dateEntreeVigueur);
+        if (creePar != null) {
+            setCreePar(creePar);
+            setModifiePar(creePar);
+        }
     }
 
     public UUID getFiliereId() { return filiereId; }

@@ -41,6 +41,19 @@ public abstract class EntiteReferentiel {
         this.motifDepreciation = motif;
     }
 
+    /**
+     * Réactive une entité précédemment dépréciée.
+     * Lève une exception si l'entité est déjà active.
+     */
+    public void reactiver() {
+        if (this.etat == EtatReferentiel.ACTIVE) {
+            throw new IllegalStateException("L'entité est déjà active.");
+        }
+        this.etat = EtatReferentiel.ACTIVE;
+        this.dateDepreciation = null;
+        this.motifDepreciation = null;
+    }
+
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
 

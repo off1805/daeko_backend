@@ -1,6 +1,7 @@
 package com.example.daeko.referentiel.infrastructure.adapter.in.web;
 
 import com.example.daeko.referentiel.application.dto.DeprecierCommand;
+import com.example.daeko.referentiel.application.dto.ReactiverCommand;
 import com.example.daeko.referentiel.application.port.in.MatiereNiveauUseCase;
 import com.example.daeko.referentiel.domain.exception.SuppressionInterditeException;
 import com.example.daeko.referentiel.domain.model.MatiereReferentielNiveau;
@@ -57,6 +58,12 @@ public class MatiereReferentielNiveauController {
         DeprecierCommand command = new DeprecierCommand(id, request.getMotif(),
                 request.getDateEffet(), null);
         return mapper.toResponse(useCase.deprecier(command));
+    }
+
+    @PostMapping("/{id}/reactiver")
+    public MatiereReferentielNiveauResponse reactiver(@PathVariable UUID id) {
+        ReactiverCommand command = new ReactiverCommand(id, null);
+        return mapper.toResponse(useCase.reactiver(command));
     }
 
     @DeleteMapping("/{id}")

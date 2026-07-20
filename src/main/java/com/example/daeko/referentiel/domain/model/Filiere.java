@@ -18,7 +18,7 @@ public class Filiere extends EntiteReferentiel {
 
     public Filiere(UUID ordreEnseignementId, UUID typeEnseignementId, String code,
                    String libelle, String libelleEn, String description,
-                   LocalDate dateEntreeVigueur) {
+                   LocalDate dateEntreeVigueur, UUID creePar) {
         super();
         this.ordreEnseignementId = ordreEnseignementId;
         this.typeEnseignementId = typeEnseignementId;
@@ -27,6 +27,10 @@ public class Filiere extends EntiteReferentiel {
         this.libelleEn = libelleEn;
         this.description = description;
         if (dateEntreeVigueur != null) setDateEntreeVigueur(dateEntreeVigueur);
+        if (creePar != null) {
+            setCreePar(creePar);
+            setModifiePar(creePar);
+        }
     }
 
     public UUID getOrdreEnseignementId() { return ordreEnseignementId; }

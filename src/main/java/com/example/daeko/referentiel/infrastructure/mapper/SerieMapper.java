@@ -20,9 +20,11 @@ public class SerieMapper {
                 entity.getLibelleCourt(),
                 entity.getLibelleEn(),
                 entity.getDescription(),
-                entity.getDateEntreeVigueur()
+                entity.getDateEntreeVigueur(),
+                entity.getCreePar()
         );
         domain.setId(entity.getId());
+        domain.setModifiePar(entity.getModifiePar());
         if (entity.getEtat() == EtatReferentielJpa.DEPRECATED) {
             domain.deprecier(entity.getMotifDepreciation(), entity.getDateDepreciation());
         }
@@ -32,15 +34,15 @@ public class SerieMapper {
     public SerieJpaEntity toEntity(Serie domain) {
         SerieJpaEntity entity = new SerieJpaEntity();
         entity.setId(domain.getId());
-        
+
         FiliereJpaEntity filiere = new FiliereJpaEntity();
         filiere.setId(domain.getFiliereId());
         entity.setFiliere(filiere);
-        
+
         NiveauJpaEntity niveau = new NiveauJpaEntity();
         niveau.setId(domain.getNiveauApparitionId());
         entity.setNiveauApparition(niveau);
-        
+
         entity.setCode(domain.getCode());
         entity.setLibelle(domain.getLibelle());
         entity.setLibelleCourt(domain.getLibelleCourt());
@@ -50,6 +52,8 @@ public class SerieMapper {
         entity.setDateDepreciation(domain.getDateDepreciation());
         entity.setMotifDepreciation(domain.getMotifDepreciation());
         entity.setEtat(EtatReferentielJpa.valueOf(domain.getEtat().name()));
+        entity.setCreePar(domain.getCreePar());
+        entity.setModifiePar(domain.getModifiePar());
         return entity;
     }
 }

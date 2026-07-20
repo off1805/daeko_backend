@@ -20,7 +20,7 @@ public class Niveau extends EntiteReferentiel {
 
     public Niveau(UUID cycleId, String code, String libelle, String libelleCourt,
                   String libelleEn, Integer rangDansCycle, Integer ageTheoriqueDebut,
-                  String description, LocalDate dateEntreeVigueur) {
+                  String description, LocalDate dateEntreeVigueur, UUID creePar) {
         super();
         this.cycleId = cycleId;
         this.code = code;
@@ -31,6 +31,10 @@ public class Niveau extends EntiteReferentiel {
         this.ageTheoriqueDebut = ageTheoriqueDebut;
         this.description = description;
         if (dateEntreeVigueur != null) setDateEntreeVigueur(dateEntreeVigueur);
+        if (creePar != null) {
+            setCreePar(creePar);
+            setModifiePar(creePar);
+        }
     }
 
     public UUID getCycleId() { return cycleId; }
