@@ -17,6 +17,9 @@ import com.example.daeko.referentiel.domain.port.MatiereReferentielRepository;
 import com.example.daeko.referentiel.domain.port.NiveauRepository;
 import com.example.daeko.referentiel.domain.port.SerieRepository;
 import com.example.daeko.referentiel.domain.service.ReferentielValidationService;
+import com.example.daeko.referentiel.infrastructure.config.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,6 +61,7 @@ public class MatiereNiveauApplicationService
      */
     @Override
     @Transactional
+    @CacheEvict(value = CacheConfig.CACHE_MATIERES_NIVEAUX, allEntries = true)
     public MatiereReferentielNiveau creer(CreerMatiereNiveauCommand command) {
         MatiereReferentiel matiere = matiereRepository.trouverParId(command.getMatiereReferentielId())
                 .orElseThrow(EntiteIntrouvableException::new);
@@ -105,6 +109,7 @@ public class MatiereNiveauApplicationService
 
     @Override
     @Transactional
+    @CacheEvict(value = CacheConfig.CACHE_MATIERES_NIVEAUX, allEntries = true)
     public MatiereReferentielNiveau deprecier(DeprecierCommand command) {
         MatiereReferentielNiveau entite = repository.trouverParId(command.getEntiteId())
                 .orElseThrow(EntiteIntrouvableException::new);
@@ -114,6 +119,7 @@ public class MatiereNiveauApplicationService
 
     @Override
     @Transactional
+    @CacheEvict(value = CacheConfig.CACHE_MATIERES_NIVEAUX, allEntries = true)
     public MatiereReferentielNiveau reactiver(ReactiverCommand command) {
         MatiereReferentielNiveau entite = repository.trouverParId(command.getEntiteId())
                 .orElseThrow(EntiteIntrouvableException::new);
@@ -122,11 +128,13 @@ public class MatiereNiveauApplicationService
     }
 
     @Override
+    @Cacheable(value = CacheConfig.CACHE_SOUS_SYSTEMES, key = "#id")
     public MatiereReferentielNiveau consulterParId(UUID id) {
         return repository.trouverParId(id).orElseThrow(EntiteIntrouvableException::new);
     }
 
     @Override
+    @Cacheable(value = CacheConfig.CACHE_SOUS_SYSTEMES, key = "#niveauId + '-' + #serieId")
     public List<MatiereReferentielNiveau> rechercher(UUID niveauId, UUID serieId) {
         return repository.rechercher(niveauId, serieId,
                 com.example.daeko.referentiel.domain.model.EtatReferentiel.ACTIVE);

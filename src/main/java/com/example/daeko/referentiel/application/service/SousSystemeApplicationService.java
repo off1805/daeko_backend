@@ -12,6 +12,9 @@ import com.example.daeko.referentiel.domain.exception.ViolationUniciteException;
 import com.example.daeko.referentiel.domain.model.EtatReferentiel;
 import com.example.daeko.referentiel.domain.model.SousSysteme;
 import com.example.daeko.referentiel.domain.port.SousSystemeRepository;
+import com.example.daeko.referentiel.infrastructure.config.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +39,7 @@ public class SousSystemeApplicationService
 
     @Override
     @Transactional
+    @CacheEvict(value = CacheConfig.CACHE_SOUS_SYSTEMES, allEntries = true)
     public SousSysteme creer(CreerSousSystemeCommand command) {
         if (repository.existeParCode(command.getCode())) {
             throw new ViolationUniciteException("Un sous-système avec le code '"
@@ -52,6 +56,7 @@ public class SousSystemeApplicationService
 
     @Override
     @Transactional
+    @CacheEvict(value = CacheConfig.CACHE_SOUS_SYSTEMES, allEntries = true)
     public SousSysteme modifier(ModifierSousSystemeCommand command) {
         SousSysteme entite = repository.trouverParId(command.getId())
                 .orElseThrow(EntiteIntrouvableException::new);
@@ -68,6 +73,7 @@ public class SousSystemeApplicationService
 
     @Override
     @Transactional
+    @CacheEvict(value = CacheConfig.CACHE_SOUS_SYSTEMES, allEntries = true)
     public SousSysteme deprecier(DeprecierCommand command) {
         SousSysteme entite = repository.trouverParId(command.getEntiteId())
                 .orElseThrow(EntiteIntrouvableException::new);
@@ -77,6 +83,7 @@ public class SousSystemeApplicationService
 
     @Override
     @Transactional
+    @CacheEvict(value = CacheConfig.CACHE_SOUS_SYSTEMES, allEntries = true)
     public SousSysteme reactiver(ReactiverCommand command) {
         SousSysteme entite = repository.trouverParId(command.getEntiteId())
                 .orElseThrow(EntiteIntrouvableException::new);
@@ -85,11 +92,13 @@ public class SousSystemeApplicationService
     }
 
     @Override
+    @Cacheable(value = CacheConfig.CACHE_SOUS_SYSTEMES, key = "#id")
     public SousSysteme consulterParId(UUID id) {
         return repository.trouverParId(id).orElseThrow(EntiteIntrouvableException::new);
     }
 
     @Override
+    @Cacheable(value = CacheConfig.CACHE_SOUS_SYSTEMES, key = "#etat")
     public List<SousSysteme> rechercher(EtatReferentiel etat) {
         return repository.rechercher(etat);
     }
