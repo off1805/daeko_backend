@@ -13,7 +13,7 @@ public class Serie extends EntiteReferentiel {
     private String libelleEn;
     private String description;
 
-    public Serie() {
+    public Serie(UUID filiereId, String code, String libelle, String libelleEn, String description, LocalDate dateEntreeVigueur) {
         super();
     }
 

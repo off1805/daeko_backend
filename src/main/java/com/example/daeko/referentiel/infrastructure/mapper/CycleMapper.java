@@ -1,56 +1,102 @@
 package com.example.daeko.referentiel.infrastructure.mapper;
 
+import com.example.daeko.referentiel.application.dto.CreerCycleCommand;
 import com.example.daeko.referentiel.domain.model.Cycle;
+import com.example.daeko.referentiel.domain.model.EtatReferentiel;
+import com.example.daeko.referentiel.infrastructure.adapter.in.web.dto.request.CreerCycleRequest;
+import com.example.daeko.referentiel.infrastructure.adapter.in.web.dto.response.CycleResponse;
 import com.example.daeko.referentiel.infrastructure.entity.CycleJpaEntity;
 import com.example.daeko.referentiel.infrastructure.entity.EtatReferentielJpa;
 import com.example.daeko.referentiel.infrastructure.entity.OrdreEnseignementJpaEntity;
-import com.example.daeko.referentiel.infrastructure.entity.SousSystemeJpaEntity;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class CycleMapper {
 
+    public CreerCycleCommand toCommand(CreerCycleRequest request, UUID utilisateurId) {
+        return new CreerCycleCommand(
+                request.getSousSystemeId(),
+                request.getOrdreEnseignementId(),
+                request.getCode(),
+                request.getLibelle(),
+                request.getLibelleEn(),
+                request.getRang(),
+                request.getDureeTheoriqueAnnees(),
+                request.getDescription(),
+                request.getDateEntreeVigueur(),
+                utilisateurId != null ? utilisateurId : request.getUtilisateurId()
+        );
+    }
+
+    public CycleResponse toResponse(Cycle domaine) {
+        if (domaine == null) {
+            return null;
+        }
+        CycleResponse response = new CycleResponse();
+        response.setId(domaine.getId());
+        response.setOrdreEnseignementId(domaine.getOrdreEnseignementId());
+        response.setEtat(domaine.getEtat() != null ? domaine.getEtat().name() : EtatReferentiel.ACTIVE.name());
+        response.setCode(domaine.getCode());
+        response.setLibelle(domaine.getLibelle());
+        response.setLibelleEn(domaine.getLibelleEn());
+        response.setDescription(domaine.getDescription());
+        response.setDateEntreeVigueur(domaine.getDateEntreeVigueur());
+        response.setDateDepreciation(domaine.getDateDepreciation());
+        return response;
+    }
+
     public Cycle toDomain(CycleJpaEntity entity) {
-        Cycle domain = new Cycle(
-                entity.getSousSysteme().getId(),
-                entity.getOrdreEnseignement().getId(),
+        if (entity == null) {
+            return null;
+        }
+        UUID ordreId = entity.getOrdreEnseignement() != null ? entity.getOrdreEnseignement().getId() : null;
+
+        Cycle domaine = new Cycle(
+                ordreId,
                 entity.getCode(),
                 entity.getLibelle(),
                 entity.getLibelleEn(),
-                entity.getRang(),
-                entity.getDureeTheoriqueAnnees(),
                 entity.getDescription(),
-                entity.getDateEntreeVigueur()
+                entity.getDateEntreeVigueur(),
+                null
         );
-        domain.setId(entity.getId());
+
+        domaine.setId(entity.getId());
+
         if (entity.getEtat() == EtatReferentielJpa.DEPRECATED) {
-            domain.deprecier(entity.getMotifDepreciation(), entity.getDateDepreciation());
+            domaine.deprecier(entity.getMotifDepreciation(), entity.getDateDepreciation());
         }
-        return domain;
+
+        return domaine;
     }
 
-    public CycleJpaEntity toEntity(Cycle domain) {
+    public CycleJpaEntity toEntity(Cycle domaine) {
+        if (domaine == null) {
+            return null;
+        }
         CycleJpaEntity entity = new CycleJpaEntity();
-        entity.setId(domain.getId());
-        
-        SousSystemeJpaEntity ss = new SousSystemeJpaEntity();
-        ss.setId(domain.getSousSystemeId());
-        entity.setSousSysteme(ss);
-        
-        OrdreEnseignementJpaEntity oe = new OrdreEnseignementJpaEntity();
-        oe.setId(domain.getOrdreEnseignementId());
-        entity.setOrdreEnseignement(oe);
-        
-        entity.setCode(domain.getCode());
-        entity.setLibelle(domain.getLibelle());
-        entity.setLibelleEn(domain.getLibelleEn());
-        entity.setRang(domain.getRang());
-        entity.setDureeTheoriqueAnnees(domain.getDureeTheoriqueAnnees());
-        entity.setDescription(domain.getDescription());
-        entity.setDateEntreeVigueur(domain.getDateEntreeVigueur());
-        entity.setDateDepreciation(domain.getDateDepreciation());
-        entity.setMotifDepreciation(domain.getMotifDepreciation());
-        entity.setEtat(EtatReferentielJpa.valueOf(domain.getEtat().name()));
+        entity.setId(domaine.getId());
+
+        if (domaine.getOrdreEnseignementId() != null) {
+            OrdreEnseignementJpaEntity ordre = new OrdreEnseignementJpaEntity();
+            ordre.setId(domaine.getOrdreEnseignementId());
+            entity.setOrdreEnseignement(ordre);
+        }
+
+        entity.setCode(domaine.getCode());
+        entity.setLibelle(domaine.getLibelle());
+        entity.setLibelleEn(domaine.getLibelleEn());
+        entity.setDescription(domaine.getDescription());
+        entity.setDateEntreeVigueur(domaine.getDateEntreeVigueur());
+        entity.setDateDepreciation(domaine.getDateDepreciation());
+        entity.setMotifDepreciation(domaine.getMotifDepreciation());
+
+        if (domaine.getEtat() != null) {
+            entity.setEtat(EtatReferentielJpa.valueOf(domaine.getEtat().name()));
+        }
+
         return entity;
     }
 }

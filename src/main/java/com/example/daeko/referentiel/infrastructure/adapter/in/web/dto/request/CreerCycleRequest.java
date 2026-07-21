@@ -1,5 +1,7 @@
-package com.example.daeko.referentiel.infrastructure.adapter.in.web.dto.response;
+package com.example.daeko.referentiel.infrastructure.adapter.in.web.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,18 +14,29 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CycleResponse {
+public class CreerCycleRequest {
 
-    private UUID id;
+    @NotNull
     private UUID sousSystemeId;
+
+    @NotNull
     private UUID ordreEnseignementId;
-    private String etat;
+
+    @NotBlank
     private String code;
+
+    @NotBlank
     private String libelle;
+
     private String libelleEn;
+
     private Integer rang;
+
     private Integer dureeTheoriqueAnnees;
+
     private String description;
+
     private LocalDate dateEntreeVigueur;
-    private LocalDate dateDepreciation;
+
+    private UUID utilisateurId;
 }

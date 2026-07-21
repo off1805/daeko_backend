@@ -3,43 +3,32 @@ package com.example.daeko.referentiel.application.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class ModifierCycleCommand {
+public class CreerSerieCommand {
 
-    private final UUID id;
-    private final UUID sousSystemeId;
-    private final UUID ordreEnseignementId;
+    private final UUID typeEnseignementId;
     private final String code;
     private final String libelle;
     private final String libelleEn;
-    private final Integer rang;
-    private final Integer dureeTheoriqueAnnees;
     private final String description;
     private final LocalDate dateEntreeVigueur;
     private final UUID utilisateurId;
 
-    public ModifierCycleCommand(UUID id, String code, String libelle,
-                                String libelleEn, Integer rang) {
-        this.id = id;
-        this.sousSystemeId = sousSystemeId;
-        this.ordreEnseignementId = ordreEnseignementId;
+    public CreerSerieCommand(UUID typeEnseignementId, String code, String libelle,
+                             String libelleEn, String description, LocalDate dateEntreeVigueur,
+                             UUID utilisateurId) {
+        this.typeEnseignementId = typeEnseignementId;
         this.code = code;
         this.libelle = libelle;
         this.libelleEn = libelleEn;
-        this.rang = rang;
-        this.dureeTheoriqueAnnees = dureeTheoriqueAnnees;
         this.description = description;
         this.dateEntreeVigueur = dateEntreeVigueur;
         this.utilisateurId = utilisateurId;
     }
 
-    public UUID getId() { return id; }
-    public UUID getSousSystemeId() { return sousSystemeId; }
-    public UUID getOrdreEnseignementId() { return ordreEnseignementId; }
+    public UUID getTypeEnseignementId() { return typeEnseignementId; }
     public String getCode() { return code; }
     public String getLibelle() { return libelle; }
     public String getLibelleEn() { return libelleEn; }
-    public Integer getRang() { return rang; }
-    public Integer getDureeTheoriqueAnnees() { return dureeTheoriqueAnnees; }
     public String getDescription() { return description; }
     public LocalDate getDateEntreeVigueur() { return dateEntreeVigueur; }
     public UUID getUtilisateurId() { return utilisateurId; }

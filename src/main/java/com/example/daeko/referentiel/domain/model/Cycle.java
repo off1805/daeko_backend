@@ -14,7 +14,7 @@ public class Cycle extends EntiteReferentiel {
     private Integer dureeTheoriqueAnnees;
     private String description;
 
-    public Cycle() {
+    public Cycle(UUID ordreEnseignementId, String code, String libelle, String libelleEn, String description, LocalDate dateEntreeVigueur, Object o) {
         super();
     }
 

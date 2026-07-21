@@ -12,5 +12,5 @@ public interface CycleRepository {
     Optional<Cycle> trouverParId(UUID id);
     List<Cycle> rechercher(EtatReferentiel etat);
     List<Cycle> rechercher(UUID sousSystemeId, UUID ordreEnseignementId, EtatReferentiel etat);
-    boolean existeParCode(UUID sousSystemeId, UUID ordreEnseignementId, String code);
+    boolean existeParCode(String code);
 }

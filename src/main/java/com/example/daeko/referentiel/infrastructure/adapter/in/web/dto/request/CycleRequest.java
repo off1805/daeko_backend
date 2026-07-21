@@ -44,16 +44,10 @@ public record CycleRequest(
     public ModifierCycleCommand toModifierCommand(UUID id) {
         return new ModifierCycleCommand(
                 id,
-                this.sousSystemeId,
-                this.ordreEnseignementId,
                 this.code,
                 this.libelle,
                 this.libelleEn,
-                this.rang,
-                this.dureeTheoriqueAnnees,
-                this.description,
-                this.dateEntreeVigueur,
-                this.utilisateurId
+                this.rang
         );
     }
 }

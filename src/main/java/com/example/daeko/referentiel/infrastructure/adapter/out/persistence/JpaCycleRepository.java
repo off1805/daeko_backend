@@ -53,7 +53,7 @@ public class JpaCycleRepository implements CycleRepository {
     }
 
     @Override
-    public boolean existeParCode(UUID sousSystemeId, UUID ordreEnseignementId, String code) {
+    public boolean existeParCode(String code) {
         return springRepo.existsBySousSystemeIdAndOrdreEnseignementIdAndCode(sousSystemeId, ordreEnseignementId, code);
     }
 }
