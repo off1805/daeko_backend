@@ -19,11 +19,12 @@ public class CacheConfig {
 
     public static final String CACHE_SOUS_SYSTEMES = "sousSystemes";
     public static final String CACHE_MATIERES_NIVEAUX = "matieresNiveaux";
+    public static final String CACHE_NIVEAUX = "niveaux";
 
     @Bean
     public CacheManager cacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager(
-                CACHE_SOUS_SYSTEMES, CACHE_MATIERES_NIVEAUX);
+                CACHE_SOUS_SYSTEMES, CACHE_MATIERES_NIVEAUX, CACHE_NIVEAUX);
         cacheManager.setCaffeine(Caffeine.newBuilder()
                 .expireAfterWrite(Duration.ofHours(24))
                 .maximumSize(500));
