@@ -1,11 +1,18 @@
 package com.example.daeko.referentiel.infrastructure.mapper;
 
+import com.example.daeko.referentiel.application.dto.CreerNiveauCommand;
+import com.example.daeko.referentiel.application.dto.ModifierNiveauCommand;
 import com.example.daeko.referentiel.domain.model.EtatReferentiel;
 import com.example.daeko.referentiel.domain.model.Niveau;
+import com.example.daeko.referentiel.infrastructure.adapter.in.web.dto.request.CreerNiveauRequest;
+import com.example.daeko.referentiel.infrastructure.adapter.in.web.dto.request.ModifierNiveauRequest;
+import com.example.daeko.referentiel.infrastructure.adapter.in.web.dto.response.NiveauResponse;
 import com.example.daeko.referentiel.infrastructure.entity.CycleJpaEntity;
 import com.example.daeko.referentiel.infrastructure.entity.EtatReferentielJpa;
 import com.example.daeko.referentiel.infrastructure.entity.NiveauJpaEntity;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class NiveauMapper {
@@ -53,5 +60,36 @@ public class NiveauMapper {
         entity.setCreePar(domain.getCreePar());
         entity.setModifiePar(domain.getModifiePar());
         return entity;
+    }
+
+    public CreerNiveauCommand toCommand(CreerNiveauRequest request, UUID utilisateurId) {
+        return new com.example.daeko.referentiel.application.dto.CreerNiveauCommand(
+                request.getCycleId(), request.getCode(), request.getLibelle(),
+                request.getLibelleCourt(), request.getLibelleEn(), request.getRangDansCycle(),
+                request.getAgeTheoriqueDebut(), request.getDescription(),
+                java.time.LocalDate.now(), utilisateurId);
+    }
+
+    public ModifierNiveauCommand toCommand(UUID id, ModifierNiveauRequest request, UUID utilisateurId) {
+        return new ModifierNiveauCommand(
+                id, request.getLibelle(), request.getLibelleCourt(), request.getLibelleEn(),
+                request.getAgeTheoriqueDebut(), request.getDescription(), utilisateurId);
+    }
+
+    public NiveauResponse toResponse(Niveau domaine) {
+        var response = new NiveauResponse();
+        response.setId(domaine.getId());
+        response.setEtat(domaine.getEtat() != null ? domaine.getEtat().name() : EtatReferentiel.ACTIVE.name());
+        response.setCycleId(domaine.getCycleId());
+        response.setCode(domaine.getCode());
+        response.setLibelle(domaine.getLibelle());
+        response.setLibelleCourt(domaine.getLibelleCourt());
+        response.setLibelleEn(domaine.getLibelleEn());
+        response.setRangDansCycle(domaine.getRangDansCycle());
+        response.setAgeTheoriqueDebut(domaine.getAgeTheoriqueDebut());
+        response.setDescription(domaine.getDescription());
+        response.setDateEntreeVigueur(domaine.getDateEntreeVigueur());
+        response.setDateDepreciation(domaine.getDateDepreciation());
+        return response;
     }
 }
