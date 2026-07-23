@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  *   - si serie_id IS NULL     : UNIQUE (matiere_referentiel_id, niveau_id)
  */
 @Entity
-@Table(name = "matiere_referentiel_niveau")
+@Table(name = "matiere_referentiel_niveau", schema = "referentiel")
 @Getter
 @Setter
 public class MatiereReferentielNiveauJpaEntity extends EntiteReferentielJpaEntity {

@@ -11,7 +11,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "audit_referentiel")
+@Table(name = "audit_referentiel", schema = "referentiel")
 @Getter
 @Setter
 public class AuditReferentielJpaEntity {

@@ -34,6 +34,12 @@ public class GlobalExceptionHandler {
                 .body(new ErreurResponse(ex.getCode(), ex.getMessage()));
     }
 
+    @ExceptionHandler(CoherenceSerieNiveauApparitionException.class)
+    public ResponseEntity<ErreurResponse> handleCoherenceSerieNiveauApparition(CoherenceSerieNiveauApparitionException ex) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .body(new ErreurResponse(ex.getCode(), ex.getMessage()));
+    }
+
     @ExceptionHandler(DeprecationSansMotifException.class)
     public ResponseEntity<ErreurResponse> handleDeprecationSansMotif(DeprecationSansMotifException ex) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)

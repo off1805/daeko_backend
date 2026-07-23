@@ -1,5 +1,7 @@
 package com.example.daeko.referentiel.domain.model;
 
+import com.example.daeko.referentiel.domain.exception.DeprecationSansMotifException;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -24,14 +26,18 @@ public abstract class EntiteReferentiel {
 
     /**
      * Déprécie l'entité en appliquant les règles du cycle de vie.
-     * Lève une exception si l'entité est déjà dépréciée ou si les paramètres sont invalides.
+     *
+     * <p>Si l'entité est déjà dépréciée, l'opération est un no-op silencieux
+     * (REF-012 : dépréciation déjà effective — idempotent, sans effet, aucune
+     * exception). Si un motif vide est fourni pour une dépréciation effective,
+     * {@link DeprecationSansMotifException} (REF-005) est levée.
      */
     public void deprecier(String motif, LocalDate dateEffet) {
         if (this.etat == EtatReferentiel.DEPRECATED) {
-            throw new IllegalStateException("L'entité est déjà dépréciée.");
+            return;
         }
         if (motif == null || motif.isBlank()) {
-            throw new IllegalArgumentException("Le motif de dépréciation est obligatoire.");
+            throw new DeprecationSansMotifException();
         }
         if (dateEffet == null) {
             throw new IllegalArgumentException("La date d'effet est obligatoire.");

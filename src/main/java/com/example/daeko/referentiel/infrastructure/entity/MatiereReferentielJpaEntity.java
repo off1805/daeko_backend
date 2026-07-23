@@ -7,7 +7,8 @@ import lombok.Setter;
 @Entity
 @Table(
     name = "matiere_referentiel",
-    uniqueConstraints = @UniqueConstraint(name = "uq_matiere_ref_ss_code", columnNames = {"sous_systeme_id", "code"})
+    uniqueConstraints = @UniqueConstraint(name = "uq_matiere_ref_ss_code", columnNames = {"sous_systeme_id", "code"}),
+    schema = "referentiel"
 )
 @Getter
 @Setter
