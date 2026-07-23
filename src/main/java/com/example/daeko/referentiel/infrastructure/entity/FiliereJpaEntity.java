@@ -10,7 +10,8 @@ import lombok.Setter;
     uniqueConstraints = @UniqueConstraint(
         name = "uq_filiere_oe_te_code",
         columnNames = {"ordre_enseignement_id", "type_enseignement_id", "code"}
-    )
+    ),
+    schema = "referentiel"
 )
 @Getter
 @Setter

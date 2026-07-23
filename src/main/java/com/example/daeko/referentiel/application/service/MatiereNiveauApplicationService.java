@@ -128,13 +128,13 @@ public class MatiereNiveauApplicationService
     }
 
     @Override
-    @Cacheable(value = CacheConfig.CACHE_SOUS_SYSTEMES, key = "#id")
+    @Cacheable(value = CacheConfig.CACHE_MATIERES_NIVEAUX, key = "#id")
     public MatiereReferentielNiveau consulterParId(UUID id) {
         return repository.trouverParId(id).orElseThrow(EntiteIntrouvableException::new);
     }
 
     @Override
-    @Cacheable(value = CacheConfig.CACHE_SOUS_SYSTEMES, key = "#niveauId + '-' + #serieId")
+    @Cacheable(value = CacheConfig.CACHE_MATIERES_NIVEAUX, key = "#niveauId + '-' + #serieId")
     public List<MatiereReferentielNiveau> rechercher(UUID niveauId, UUID serieId) {
         return repository.rechercher(niveauId, serieId,
                 com.example.daeko.referentiel.domain.model.EtatReferentiel.ACTIVE);

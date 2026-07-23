@@ -9,7 +9,8 @@ import lombok.Setter;
 @Entity
 @Table(
     name = "type_enseignement",
-    uniqueConstraints = @UniqueConstraint(name = "uq_type_enseignement_code", columnNames = "code")
+    uniqueConstraints = @UniqueConstraint(name = "uq_type_enseignement_code", columnNames = "code"),
+    schema = "referentiel"
 )
 public class TypeEnseignementJpaEntity extends EntiteReferentielJpaEntity {
 

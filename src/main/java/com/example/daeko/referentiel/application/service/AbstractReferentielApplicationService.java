@@ -5,6 +5,7 @@ import com.example.daeko.referentiel.application.dto.ReactiverCommand;
 import com.example.daeko.referentiel.application.port.out.AuditPort;
 import com.example.daeko.referentiel.application.port.out.EvenementPublisherPort;
 import com.example.daeko.referentiel.domain.model.EntiteReferentiel;
+import com.example.daeko.referentiel.domain.model.EtatReferentiel;
 
 public abstract class AbstractReferentielApplicationService<T extends EntiteReferentiel> {
 
@@ -18,6 +19,11 @@ public abstract class AbstractReferentielApplicationService<T extends EntiteRefe
     }
 
     protected final T executerDepreciation(T entite, String typeEntite, DeprecierCommand command) {
+        if (entite.getEtat() == EtatReferentiel.DEPRECATED) {
+            // REF-012 : dépréciation déjà effective — réponse informative (200),
+            // idempotente, sans nouvel audit ni nouvel événement.
+            return entite;
+        }
         T avant = copier(entite);
         entite.deprecier(command.getMotif(), command.getDateEffet());
         entite.setModifiePar(command.getUtilisateurId());
