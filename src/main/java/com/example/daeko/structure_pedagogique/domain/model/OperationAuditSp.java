@@ -1,0 +1,17 @@
+package com.example.daeko.structure_pedagogique.domain.model;
+
+public enum OperationAuditSp {
+    CREATION,
+    MODIFICATION,
+    ACTIVATION_ELEMENT,
+    RETRAIT_ELEMENT,
+    SUSPENSION,
+    REACTIVATION,
+    ARCHIVAGE,
+    DUPLICATION,
+    DEMARRAGE_ANNEE,
+    CLOTURE_ANNEE,
+    DEVERROUILLAGE_COEFFICIENT,
+    DESACTIVATION_CLASSE,
+    DEPRECIATION_MATIERE_LOCALE
+}

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandlerReferentiel {
 
     @ExceptionHandler(ViolationUniciteException.class)
     public ResponseEntity<ErreurResponse> handleViolationUnicite(ViolationUniciteException ex) {
