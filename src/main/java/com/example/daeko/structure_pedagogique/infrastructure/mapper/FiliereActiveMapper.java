@@ -1,6 +1,7 @@
 package com.example.daeko.structure_pedagogique.infrastructure.mapper;
 
 import com.example.daeko.structure_pedagogique.domain.model.FiliereActive;
+import com.example.daeko.structure_pedagogique.infrastructure.adapter.in.web.dto.response.FiliereActiveResponse;
 import com.example.daeko.structure_pedagogique.infrastructure.entity.FiliereActiveJpaEntity;
 import org.springframework.stereotype.Component;
 
@@ -21,4 +22,14 @@ public class FiliereActiveMapper {
         return FiliereActive.reconstituer(jpa.getId(), jpa.getConfigurationId(), jpa.getFiliereId(),
             jpa.getDateCreation(), jpa.getCreePar());
     }
+
+    public FiliereActiveResponse toResponse(FiliereActive domaine) {
+        FiliereActiveResponse reponse = new FiliereActiveResponse();
+        reponse.setId(domaine.getId());
+        reponse.setConfigurationId(domaine.getConfigurationId());
+        reponse.setFiliereId(domaine.getFiliereId());
+        reponse.setDateCreation(domaine.getDateCreation());
+        return reponse;
+    }
 }
+

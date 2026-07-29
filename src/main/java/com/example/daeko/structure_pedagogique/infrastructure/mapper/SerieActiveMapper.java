@@ -1,6 +1,7 @@
 package com.example.daeko.structure_pedagogique.infrastructure.mapper;
 
 import com.example.daeko.structure_pedagogique.domain.model.SerieActive;
+import com.example.daeko.structure_pedagogique.infrastructure.adapter.in.web.dto.response.SerieActiveResponse;
 import com.example.daeko.structure_pedagogique.infrastructure.entity.SerieActiveJpaEntity;
 import org.springframework.stereotype.Component;
 
@@ -21,4 +22,14 @@ public class SerieActiveMapper {
         return SerieActive.reconstituer(jpa.getId(), jpa.getNiveauActiveId(), jpa.getSerieId(),
             jpa.getDateCreation(), jpa.getCreePar());
     }
+
+    public SerieActiveResponse toResponse(SerieActive domaine) {
+        SerieActiveResponse reponse = new SerieActiveResponse();
+        reponse.setId(domaine.getId());
+        reponse.setNiveauActiveId(domaine.getNiveauActiveId());
+        reponse.setSerieId(domaine.getSerieId());
+        reponse.setDateCreation(domaine.getDateCreation());
+        return reponse;
+    }
 }
+
