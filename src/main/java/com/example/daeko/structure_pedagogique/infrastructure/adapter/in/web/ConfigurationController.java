@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/structure")
 public class ConfigurationController {
 
     private final ConfigurationUseCase configurationUseCase;

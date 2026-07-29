@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/annees-academiques")
+@RequestMapping("/api/structure/annees-academiques")
 public class AnneeAcademiqueController {
 
     private final AnneeAcademiqueUseCase anneeAcademiqueUseCase;

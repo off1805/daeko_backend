@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/structure")
 public class MatiereLocaleController {
 
     private final MatiereLocaleUseCase matiereLocaleUseCase;

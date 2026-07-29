@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/branches")
+@RequestMapping("/api/structure/branches")
 public class BrancheController {
 
     private final BrancheUseCase brancheUseCase;

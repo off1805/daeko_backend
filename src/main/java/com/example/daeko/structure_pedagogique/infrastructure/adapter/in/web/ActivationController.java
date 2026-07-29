@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/structure")
 public class ActivationController {
 
     private final FiliereActiveUseCase filiereActiveUseCase;
