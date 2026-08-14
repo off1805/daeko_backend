@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DomainServiceConfig {
+public class DomainServiceConfigReferentiel {
 
     @Bean
     public ReferentielValidationService referentielValidationService(
